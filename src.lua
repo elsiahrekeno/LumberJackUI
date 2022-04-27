@@ -118,8 +118,6 @@ function Lib.SendNotification(title,descriptioon)
                 Motherframe.Position = UDim2.new(-0.17, 0,0.939, 0)
                 Motherframe.Size = UDim2.new(0, 264, 0, 62)
 
-
-                Functions:DraggingEnabled(Motherframe,Motherframe)
                 Name.Name = "Name"
                 Name.Parent = Motherframe
                 Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -233,6 +231,7 @@ function Lib.Init(settings)
             Motherframe.BackgroundColor3 = Color3.fromRGB(215, 215, 215)
             Motherframe.Position = UDim2.new(0.499405891, 0, 0.5, 0)
             Motherframe.Size = UDim2.new(0, 606, 0, 540)
+            Functions:DraggingEnabled(Motherframe,Motherframe)
 
             Sidebar.Name = "Sidebar"
             Sidebar.Parent = Motherframe
