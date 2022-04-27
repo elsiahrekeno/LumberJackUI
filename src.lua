@@ -1050,8 +1050,8 @@ SliderButton.MouseButton1Down:Connect(function()
 Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 390) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
 
     
-    pcall(callback)
-    SliderInt.Text = Value
+pcall(callback, Value)
+SliderInt.Text = Value
                 
   Tween:Create(SliderInt,TweenInfo.new(.7), { TextTransparency = 0 }):Play()
   SliderInt.TextTransparency = 0
@@ -1065,7 +1065,7 @@ moveconnection = mouse.Move:Connect(function()
     SliderInt.TextTransparency = 0
   
     Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 390) *SliderInner.AbsoluteSize.X) + tonumber(minvalue))
-    pcall(callback)
+    pcall(callback, Value)
     SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 390), 0, 9)
 end)
 releaseconnection = uis.InputEnded:Connect(function(Mouse)
@@ -1076,7 +1076,7 @@ releaseconnection = uis.InputEnded:Connect(function(Mouse)
         Tween:Create(SliderInt,TweenInfo.new(.7), { TextTransparency = 0 }):Play()
         SliderInt.TextTransparency = 0
       
-        pcall(callback)
+        pcall(callback, Value)
         SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 390), 0, 9)
         moveconnection:Disconnect()
         releaseconnection:Disconnect()
