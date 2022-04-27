@@ -14,6 +14,40 @@ function Functions.DestroyUI()
         end
     end
 end
+function Functions:DraggingEnabled(frame, parent)
+        
+    parent = parent or frame
+        local dragging = false
+    local dragInput, mousePos, framePos
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            mousePos = input.Position
+            framePos = parent.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            dragInput = input
+        end
+    end)
+
+    UIS.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - mousePos
+            parent.Position  = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
 for i, connection in pairs(getconnections(UIS.InputBegan)) do
     connection:Disable()
 end
@@ -84,6 +118,8 @@ function Lib.SendNotification(title,descriptioon)
                 Motherframe.Position = UDim2.new(-0.17, 0,0.939, 0)
                 Motherframe.Size = UDim2.new(0, 264, 0, 62)
 
+
+                Functions:DraggingEnabled(Motherframe,Motherframe)
                 Name.Name = "Name"
                 Name.Parent = Motherframe
                 Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
